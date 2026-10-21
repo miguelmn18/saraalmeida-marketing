@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 const WHATSAPP = 'https://wa.me/558381590351?text=Ol%C3%A1%2C%20Sara!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conhecer%20seus%20servi%C3%A7os.';
-const assets = '/imagens-serviço/';
+const assets = '/imagens-servico/';
 const services = [
   { icon: Palette, title: 'Artes digitais', text: 'Ilustrações, banners, materiais ricos e peças visuais personalizadas para valorizar o seu negócio.' },
   { icon: Gift, title: 'Artes comemorativas', text: 'Identidade visual e papelaria digital para datas especiais, homenagens e celebrações marcantes.' },
@@ -16,22 +16,22 @@ const services = [
   { icon: Video, title: 'Vídeos e coberturas', text: 'Captação e edição de Reels, TikToks, vídeos institucionais e cobertura audiovisual de eventos.' },
 ];
 const projects = [
-  { images: ['croche-1.PNG', 'croche-2.PNG'], label: 'Identidade visual · Crochê' },
-  { images: ['IMG_4953.PNG', 'IMG_4954.PNG'], label: 'Design de marca' },
-  { images: ['IMG_4955.PNG', 'canna-2.PNG'], label: 'Conteúdo para redes sociais' },
-  { images: ['canna-3.1.PNG', 'sara-1.PNG'], label: 'Direção de arte' },
-  { images: ['sara-2.PNG', 'sara-4.PNG'], label: 'Design e comunicação' },
-  { images: ['sara-5.PNG', 'sara-6.PNG'], label: 'Projetos criativos' },
-  { images: ['sara-7.PNG'], label: 'Peça em destaque' },
-  { images: ['IMG_4938.PNG', 'IMG_4939.PNG'], label: 'Design para marcas' },
-  { images: ['IMG_4940.PNG', 'IMG_4941.PNG'], label: 'Conteúdo visual' },
-  { images: ['IMG_4942.PNG', 'IMG_4943.PNG'], label: 'Identidade e campanhas' },
-  { images: ['IMG_4944.PNG', 'IMG_4945.PNG'], label: 'Criação digital' },
-  { images: ['IMG_4946.PNG', 'IMG_4947.PNG'], label: 'Comunicação visual' },
-  { images: ['IMG_4950.PNG'], label: 'Peça de portfólio' },
-  { video: 'IMG_4960.MP4', label: 'Projeto audiovisual' },
-  { video: 'IMG_4959.MP4', label: 'Conteúdo em vídeo' },
-  { video: 'IMG_4958.MP4', label: 'Edição audiovisual' },
+  { images: ['/public/croche-1.png', '/public/croche-2.png'], label: 'Identidade visual · Crochê' },
+  { images: ['/public/public/IMG_4953.png', 'public/IMG_4954.png'], label: 'Design de marca' },
+  { images: ['/public/public/IMG_4955.png', '/public/canna-2.png'], label: 'Conteúdo para redes sociais' },
+  { images: ['/public/canna-3.1.png', '/public/sara-1.png'], label: 'Direção de arte' },
+  { images: ['/public/sara-2.png', '/public/sara-4.png'], label: 'Design e comunicação' },
+  { images: ['/public/sara-5.png', '/public/sara-6.png'], label: 'Projetos criativos' },
+  { images: ['/public/sara-7.png'], label: 'Peça em destaque' },
+  { images: ['/IMG_4938.png', '/public/IMG_4939.png'], label: 'Design para marcas' },
+  { images: ['/public/IMG_4940.png', '/public/IMG_4941.png'], label: 'Conteúdo visual' },
+  { images: ['/public/IMG_4942.png', '/public/IMG_4943.png'], label: 'Identidade e campanhas' },
+  { images: ['/public/IMG_4944.png', '/public/IMG_4945.png'], label: 'Criação digital' },
+  { images: ['/public/IMG_4946.png', '/public/IMG_4947.png'], label: 'Comunicação visual' },
+  { images: ['/public/IMG_4950.png'], label: 'Peça de portfólio' },
+  { video: '/public/IMG_4960.mp4', label: 'Projeto audiovisual' },
+  { video: '/public/IMG_4959.mp4', label: 'Conteúdo em vídeo' },
+  { video: '/public/IMG_4958.mp4', label: 'Edição audiovisual' },
 ];
 const workImages = [
   ['imagens/big-nordeste-1.jpg', 'Projeto Rede Bignordeste'],
@@ -149,7 +149,7 @@ function App() {
 
       <section className="portfolio-section" id="portfolio"><div className="section-wrap"><div className="portfolio-heading reveal"><div><span className="eyebrow">04 — Portfólio criativo</span><h2>Trabalhos em <em>destaque.</em></h2></div><p>Uma seleção de projetos, peças e conteúdos que traduzem diferentes ideias em comunicação visual.</p></div><div className="portfolio-stage reveal"><div className="portfolio-meta"><span>{String(slide + 1).padStart(2, '0')} <i>/ {String(projects.length).padStart(2, '0')}</i></span><span>{activeProject.label}</span><div className="portfolio-controls"><button onClick={() => moveSlide(-1)} aria-label="Projeto anterior"><ArrowLeft size={18} /></button><button onClick={() => moveSlide(1)} aria-label="Próximo projeto"><ArrowRight size={18} /></button></div></div><div className="project-viewport" key={slide}><div className={`project-media ${activeProject.video ? 'project-video' : ''}`}>{activeProject.video ? <video src={`${assets}${activeProject.video}`} controls playsInline preload="metadata" aria-label={activeProject.label} /> : activeProject.images.map((image, i) => <button key={image} className="project-image" onClick={() => setLightbox({ items: activeProject.images.map((name) => ({ src: `${assets}${name}`, alt: activeProject.label })), index: i, title: activeProject.label })} aria-label={`Ampliar ${activeProject.label}`}><img src={`${assets}${image}`} alt={`${activeProject.label} — imagem ${i + 1}`} loading="lazy" /><span><ImageIcon size={17} /> Ampliar</span></button>)}</div></div><div className="portfolio-progress"><div style={{ width: `${((slide + 1) / projects.length) * 100}%` }} /></div></div><div className="portfolio-bottom reveal"><span>DESLIZE PELA SELEÇÃO</span><span>DESIGN · CONTEÚDO · VÍDEO</span></div></div></section>
 
-      <section className="method-section section-wrap reveal"><div className="method-copy"><span className="eyebrow">05 — Metodologia</span><h2>Visão estratégica<br />para um digital <em>mais forte.</em></h2><p>Uma presença digital consistente vai além de publicar. Pesquisa, planejamento, conteúdo e análise trabalham juntos para aproximar marcas do público certo.</p><div className="method-points"><div><span>01</span><p><b>Entender</b><small>Marca, público e objetivos.</small></p></div><div><span>02</span><p><b>Criar</b><small>Conteúdo com intenção e identidade.</small></p></div><div><span>03</span><p><b>Aprimorar</b><small>Observar, aprender e evoluir.</small></p></div></div></div><div className="chart-card"><div className="chart-card-heading"><div><span className="eyebrow">Ciclo de trabalho</span><h3>Estratégia em movimento</h3></div><BarChart3 size={22} /></div><canvas ref={canvasRef} className="strategy-chart" aria-label="Ilustração conceitual do processo de estratégia, criação e evolução" role="img"></canvas><div className="chart-note"><span className="chart-dot"></span> Processo contínuo de melhoria <span className="chart-note-end">S / A</span></div><p className="chart-disclaimer">Visual ilustrativo da metodologia — não representa métricas reais de desempenho.</p></div></section>
+      <section className="method-section section-wrap reveal"><div className="method-copy"><span className="eyebrow">05 — Metodologia</span><h2>Visão estratégica<br />para um digital <em>mais forte.</em></h2><p>Uma presença digital consistente vai além de publicar. Pesquisa, planejamento, conteúdo e análise trabalham juntos para aproximar marcas do público certo.</p><div className="method-points"><div><span>01</span><p><b>Entender</b><small>Marca, público e objetivos.</small></p></div><div><span>02</span><p><b>Criar</b><small>Conteúdo com intenção e identidade.</small></p></div><div><span>03</span><p><b>Aprimorar</b><small>Observar, aprender e evoluir.</small></p></div></div></div><div className="chart-card"><div className="chart-card-heading"><div><span className="eyebrow">Ciclo de trabalho</span><h3>Estratégia em movimento</h3></div><BarChart3 size={22} /></div><canvas ref={canvasRef} className="strategy-chart" aria-label="Ilustração conceitual do processo de estratégia, criação e evolução" role="public/img"></canvas><div className="chart-note"><span className="chart-dot"></span> Processo contínuo de melhoria <span className="chart-note-end">S / A</span></div><p className="chart-disclaimer">Visual ilustrativo da metodologia — não representa métricas reais de desempenho.</p></div></section>
 
       <section className="contact-section" id="contato"><div className="contact-orbit orbit-one"></div><div className="contact-orbit orbit-two"></div><div className="contact-inner reveal"><span className="eyebrow">06 — Vamos conversar</span><h2>Sua próxima ideia<br />pode começar <em>aqui.</em></h2><p>Quer fortalecer a presença digital da sua marca, criar conteúdo ou tirar dúvidas sobre um projeto? Vamos conversar sobre o que você precisa.</p><a className="button button-light" href={WHATSAPP} target="_blank" rel="noreferrer">Falar com Sara pelo WhatsApp <ArrowUpRight size={18} /></a><div className="contact-signature">Sara Almeida <span>Marketing Digital & Social Media</span></div></div></section>
     </main>
