@@ -16,22 +16,22 @@ const services = [
   { icon: Video, title: 'Vídeos e coberturas', text: 'Captação e edição de Reels, TikToks, vídeos institucionais e cobertura audiovisual de eventos.' },
 ];
 const projects = [
-  { images: ['/croche-1.png', '/croche-2.png'], label: 'Identidade visual · Crochê' },
-  { images: ['/public/IMG_4953.png', 'public/IMG_4954.png'], label: 'Design de marca' },
-  { images: ['/public/IMG_4955.png', '/canna-2.png'], label: 'Conteúdo para redes sociais' },
-  { images: ['/canna-3.1.png', '/sara-1.png'], label: 'Direção de arte' },
-  { images: ['/sara-2.png', '/sara-4.png'], label: 'Design e comunicação' },
-  { images: ['/sara-5.png', '/sara-6.png'], label: 'Projetos criativos' },
-  { images: ['/sara-7.png'], label: 'Peça em destaque' },
-  { images: ['/IMG_4938.png', '/IMG_4939.png'], label: 'Design para marcas' },
-  { images: ['/IMG_4940.png', '/IMG_4941.png'], label: 'Conteúdo visual' },
-  { images: ['/IMG_4942.png', '/IMG_4943.png'], label: 'Identidade e campanhas' },
-  { images: ['/IMG_4944.png', '/IMG_4945.png'], label: 'Criação digital' },
-  { images: ['/IMG_4946.png', '/IMG_4947.png'], label: 'Comunicação visual' },
-  { images: ['/IMG_4950.png'], label: 'Peça de portfólio' },
-  { video: '/IMG_4960.mp4', label: 'Projeto audiovisual' },
-  { video: '/IMG_4959.mp4', label: 'Conteúdo em vídeo' },
-  { video: '/IMG_4958.mp4', label: 'Edição audiovisual' },
+  { images: ['/croche-1.PNG', '/croche-2.PNG'], label: 'Identidade visual · Crochê' },
+  { images: ['IMG_4953.PNG', 'public/IMG_4954.PNG'], label: 'Design de marca' },
+  { images: ['IMG_4955.PNG', '/canna-2.PNG'], label: 'Conteúdo para redes sociais' },
+  { images: ['/canna-3.1.PNG', '/sara-1.PNG'], label: 'Direção de arte' },
+  { images: ['/sara-2.PNG', '/sara-4.PNG'], label: 'Design e comunicação' },
+  { images: ['/sara-5.PNG', '/sara-6.PNG'], label: 'Projetos criativos' },
+  { images: ['/sara-7.PNG'], label: 'Peça em destaque' },
+  { images: ['/IMG_4938.PNG', '/IMG_4939.PNG'], label: 'Design para marcas' },
+  { images: ['/IMG_4940.PNG', '/IMG_4941.PNG'], label: 'Conteúdo visual' },
+  { images: ['/IMG_4942.PNG', '/IMG_4943.PNG'], label: 'Identidade e campanhas' },
+  { images: ['/IMG_4944.PNG', '/IMG_4945.PNG'], label: 'Criação digital' },
+  { images: ['/IMG_4946.PNG', '/IMG_4947.PNG'], label: 'Comunicação visual' },
+  { images: ['/IMG_4950.PNG'], label: 'Peça de portfólio' },
+  { video: '/imagens-servico/IMG_4960.MP4', label: 'Projeto audiovisual' },
+  { video: '/imagens-servico/IMG_4959.MP4', label: 'Conteúdo em vídeo' },
+  { video: '/imagens-servico/IMG_4958.MP4', label: 'Edição audiovisual' },
 ];
 const workImages = [
   ['imagens/big-nordeste-1.jpg', 'Projeto Rede Bignordeste'],
@@ -112,7 +112,7 @@ function App() {
 
   return <>
     <header className={`site-header ${scrolled ? 'header-scrolled' : ''}`}>
-      <a className="brand" href="#inicio" aria-label="Sara Almeida, início"><img src="/imagens/perfil-nav%20(3).png" alt="" /><span>SARA <b>ALMEIDA</b></span></a>
+      <a className="brand" href="#inicio" aria-label="Sara Almeida, início"><img src="/imagens/perfil-nav%20(3).PNG" alt="" /><span>SARA <b>ALMEIDA</b></span></a>
       <button className="menu-toggle" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
       <nav className={menuOpen ? 'nav-open' : ''} aria-label="Navegação principal">
         <a href="#biografia" onClick={navigateTo}>Biografia</a><a href="#trajetoria" onClick={navigateTo}>Trajetória</a><a href="#servicos" onClick={navigateTo}>Serviços</a><a href="#portfolio" onClick={navigateTo}>Portfólio</a>
@@ -154,7 +154,7 @@ function App() {
       <section className="contact-section" id="contato"><div className="contact-orbit orbit-one"></div><div className="contact-orbit orbit-two"></div><div className="contact-inner reveal"><span className="eyebrow">06 — Vamos conversar</span><h2>Sua próxima ideia<br />pode começar <em>aqui.</em></h2><p>Quer fortalecer a presença digital da sua marca, criar conteúdo ou tirar dúvidas sobre um projeto? Vamos conversar sobre o que você precisa.</p><a className="button button-light" href={WHATSAPP} target="_blank" rel="noreferrer">Falar com Sara pelo WhatsApp <ArrowUpRight size={18} /></a><div className="contact-signature">Sara Almeida <span>Marketing Digital & Social Media</span></div></div></section>
     </main>
 
-    <footer className="site-footer"><a className="footer-brand" href="#inicio"><img src="/imagens/perfil-nav%20(3).png" alt="" /><span>SARA <b>ALMEIDA</b></span></a><p>Estratégia, criatividade e conexão.</p><div className="footer-links"><a href="https://www.instagram.com/saradealmeidaa/" target="_blank" rel="noreferrer"><Instagram size={16} /> Instagram</a><a href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle size={16} /> WhatsApp</a><a href="mailto:saraalmeida878@gmail.com"><Mail size={16} /> E-mail</a></div><span className="copyright">© {new Date().getFullYear()} Sara Almeida. Todos os direitos reservados.</span></footer>
+    <footer className="site-footer"><a className="footer-brand" href="#inicio"><img src="/imagens/perfil-nav%20(3).PNG" alt="" /><span>SARA <b>ALMEIDA</b></span></a><p>Estratégia, criatividade e conexão.</p><div className="footer-links"><a href="https://www.instagram.com/saradealmeidaa/" target="_blank" rel="noreferrer"><Instagram size={16} /> Instagram</a><a href={WHATSAPP} target="_blank" rel="noreferrer"><MessageCircle size={16} /> WhatsApp</a><a href="mailto:saraalmeida878@gmail.com"><Mail size={16} /> E-mail</a></div><span className="copyright">© {new Date().getFullYear()} Sara Almeida. Todos os direitos reservados.</span></footer>
 
     <a className="whatsapp-float" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="Conversar com Sara pelo WhatsApp"><MessageCircle size={23} /><span>Vamos conversar</span></a>
 
