@@ -213,7 +213,7 @@ function App() {
     <header className={`site-header ${scrolled ? 'header-scrolled' : ''}`}>
 
       <a className="brand" href="#inicio" aria-label="Sara Almeida, início">
-<img src="/public/foto-aba.jpeg" alt="" />
+<img src="/foto-aba.jpeg" alt="" />
 <span>SARA <b>ALMEIDA</b>
 </span>
 </a>
@@ -489,7 +489,7 @@ function App() {
 
     <footer className="site-footer">
 <a className="footer-brand" href="#inicio">
-<img src="/public/foto-aba.jpeg" alt="" />
+<img src="/foto-aba.jpeg" alt="" />
 <span>SARA <b>ALMEIDA</b>
 </span>
 </a>
