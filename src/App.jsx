@@ -489,7 +489,7 @@ function App() {
 
     <footer className="site-footer">
 <a className="footer-brand" href="#inicio">
-<img src="/public/foto-aba.jpeg" alt="" />
+<img src="/public/foto-aba.jp" alt="" />
 <span>SARA <b>ALMEIDA</b>
 </span>
 </a>
