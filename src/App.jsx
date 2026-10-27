@@ -213,7 +213,7 @@ function App() {
     <header className={`site-header ${scrolled ? 'header-scrolled' : ''}`}>
 
       <a className="brand" href="#inicio" aria-label="Sara Almeida, início">
-<img src="/imagens/perfil-nav%20(3).PNG" alt="" />
+<img src="/public/foto-aba.jpeg" alt="" />
 <span>SARA <b>ALMEIDA</b>
 </span>
 </a>
@@ -274,7 +274,7 @@ function App() {
 <img src="/imagens/perfil2.jpg" alt="Sara Almeida, profissional de marketing digital" className="hero-portrait" />
 <div className="portrait-caption">
 <span>Estratégia com propósito.</span>
-<span>Cacimba De Dentro · PB</span>
+<span>Cacimba De Dentro Grande · PB</span>
 </div>
 </div>
 
@@ -489,7 +489,7 @@ function App() {
 
     <footer className="site-footer">
 <a className="footer-brand" href="#inicio">
-<img src="/imagens/perfil-nav%20(3).PNG" alt="" />
+<img src="/public/foto-aba.jpeg" alt="" />
 <span>SARA <b>ALMEIDA</b>
 </span>
 </a>

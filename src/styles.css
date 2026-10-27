@@ -1327,7 +1327,7 @@ img {
         gap:9px
     }
     .project-video {
-        grid-template-rows:1fr
+        grid-template-rows:4fr
     }
     .project-image>span {
         opacity:1;
