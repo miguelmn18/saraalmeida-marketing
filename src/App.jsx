@@ -6,7 +6,7 @@ import {
 
   Check, ChevronDown, ExternalLink, Instagram, Mail, Menu, MessageCircle,
 
-  Palette, Play, Sparkles, Video, X, Gift, PenTool, Layers3, Image as ImageIcon
+  Palette, Play, Sparkles, Video, X, Gift, PenTool, Layers3, Maximize2, Image as ImageIcon
 
 } from 'lucide-react';
 
@@ -30,40 +30,29 @@ const services = [
 
 ];
 
-const projects = [
-
+const imageProjects = [
   { images: ['croche-1.PNG', 'croche-2.PNG'], label: 'Identidade visual · Crochê' },
-
   { images: ['IMG_4953.PNG', 'IMG_4954.PNG'], label: 'Design de marca' },
-
   { images: ['IMG_4955.PNG', 'canna-2.PNG'], label: 'Conteúdo para redes sociais' },
-
   { images: ['canna-3.1.PNG', 'sara-1.PNG'], label: 'Direção de arte' },
-
   { images: ['sara-2.PNG', 'sara-4.PNG'], label: 'Design e comunicação' },
-
   { images: ['sara-5.PNG', 'sara-6.PNG'], label: 'Projetos criativos' },
-
   { images: ['sara-7.PNG'], label: 'Peça em destaque' },
-
   { images: ['IMG_4938.PNG', 'IMG_4939.PNG'], label: 'Design para marcas' },
-
   { images: ['IMG_4940.PNG', 'IMG_4941.PNG'], label: 'Conteúdo visual' },
-
   { images: ['IMG_4942.PNG', 'IMG_4943.PNG'], label: 'Identidade e campanhas' },
-
   { images: ['IMG_4944.PNG', 'IMG_4945.PNG'], label: 'Criação digital' },
-
   { images: ['IMG_4946.PNG', 'IMG_4947.PNG'], label: 'Comunicação visual' },
-
   { images: ['IMG_4950.PNG'], label: 'Peça de portfólio' },
+];
 
-  { video: 'IMG_4960.MP4', label: 'Projeto audiovisual' },
-
-  { video: 'IMG_4959.MP4', label: 'Conteúdo em vídeo' },
-
-  { video: 'IMG_4958.MP4', label: 'Edição audiovisual' },
-
+const videoProjects = [
+ { video: 'imagens-serviço/IMG_4960.MP4', label: 'Produção e edição audiovisual para comemoração Dia das Mulheres ' },
+  { video: 'imagens-serviço/IMG_4959.MP4', label: 'Produção e edição audiovisual bastidores reunião de equipe' },
+  { video: 'imagens-serviço/IMG_4958.MP4', label: 'Produção e edição audiovisual da divulgação de campanha' },
+  { video: 'imagens-serviço/IMG_2685.mp4', label: 'Story' },
+  { video: 'imagens-serviço/IMG_2708.mp4', label: 'Produção e edição audiovisual Inauguração Salão de Beleza' },
+  { video: 'imagens-serviço/IMG_2684.mp4', label: 'Story' },
 ];
 
 const workImages = [
@@ -92,7 +81,6 @@ function App() {
 
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const [slide, setSlide] = useState(0);
 
   const [lightbox, setLightbox] = useState(null);
 
@@ -100,7 +88,6 @@ function App() {
 
   const canvasRef = useRef(null);
 
-  const maxSlide = projects.length;
 
   useEffect(() => {
 
@@ -200,13 +187,11 @@ function App() {
 
   }, []);
 
-  const activeProject = projects[slide];
 
   const lightboxItems = useMemo(() => lightbox?.items || [], [lightbox]);
 
   const navigateTo = () => setMenuOpen(false);
 
-  const moveSlide = (direction) => setSlide((current) => (current + direction + maxSlide) % maxSlide);
 
   return <>
 
@@ -379,46 +364,88 @@ function App() {
 </section>
 
       <section className="portfolio-section" id="portfolio">
-<div className="section-wrap">
-<div className="portfolio-heading reveal">
-<div>
-<span className="eyebrow">04 — Portfólio criativo</span>
-<h2>Trabalhos em <em>destaque.</em>
-</h2>
-</div>
-<p>Uma seleção de projetos, peças e conteúdos que traduzem diferentes ideias em comunicação visual.</p>
-</div>
-<div className="portfolio-stage reveal">
-<div className="portfolio-meta">
-<span>{String(slide + 1).padStart(2, '0')} <i>/ {String(projects.length).padStart(2, '0')}</i>
-</span>
-<span>{activeProject.label}</span>
-<div className="portfolio-controls">
-<button onClick={() => moveSlide(-1)} aria-label="Projeto anterior">
-<ArrowLeft size={18} />
-</button>
-<button onClick={() => moveSlide(1)} aria-label="Próximo projeto">
-<ArrowRight size={18} />
-</button>
-</div>
-</div>
-<div className="project-viewport" key={slide}>
-<div className={`project-media ${activeProject.video ? 'project-video' : ''}`}>{activeProject.video ? <video src={`${assets}${activeProject.video}`} controls playsInline preload="metadata" aria-label={activeProject.label} /> : activeProject.images.map((image, i) => <button key={image} className="project-image" onClick={() => setLightbox({ items: activeProject.images.map((name) => ({ src: `${assets}${name}`, alt: activeProject.label })), index: i, title: activeProject.label })} aria-label={`Ampliar ${activeProject.label}`}>
-<img src={`${assets}${image}`} alt={`${activeProject.label} — imagem ${i + 1}`} loading="lazy" />
-<span>
-<ImageIcon size={17} /> Ampliar</span>
-</button>)}</div>
-</div>
-<div className="portfolio-progress">
-<div style={{ width: `${((slide + 1) / projects.length) * 100}%` }} />
-</div>
-</div>
-<div className="portfolio-bottom reveal">
-<span>DESLIZE PELA SELEÇÃO</span>
-<span>DESIGN · CONTEÚDO · VÍDEO</span>
-</div>
-</div>
-</section>
+        <div className="section-wrap">
+          <div className="portfolio-heading reveal">
+            <div>
+              <span className="eyebrow">04 — Portfólio criativo</span>
+              <h2>Trabalhos em <em>destaque.</em></h2>
+            </div>
+            <p>Explore separadamente os projetos de design e fotografia e as produções audiovisuais.</p>
+          </div>
+
+          <div className="portfolio-galleries reveal">
+            <section className="portfolio-gallery image-gallery" aria-labelledby="gallery-images-title">
+              <div className="gallery-heading">
+                <div className="gallery-icon"><ImageIcon size={21} /></div>
+                <div>
+                  <span className="gallery-kicker">Galeria 01</span>
+                  <h3 id="gallery-images-title">Imagens &amp; Design</h3>
+                  <p>Artes, identidades visuais e conteúdos gráficos.</p>
+                </div>
+                <span className="gallery-count">{imageProjects.reduce((total, project) => total + project.images.length, 0)} imagens</span>
+              </div>
+              <div className="image-gallery-grid">
+                {imageProjects.flatMap((project) => project.images.map((image) => ({
+                  image,
+                  label: project.label,
+                }))).map(({ image, label }, index) => (
+                  <button
+                    className="gallery-image-card"
+                    key={image}
+                    onClick={() => setLightbox({
+                      items: imageProjects.flatMap((project) => project.images.map((name) => ({
+                        src: `${assets}${name}`,
+                        alt: project.label,
+                      }))),
+                      index: imageProjects.flatMap((project) => project.images).indexOf(image),
+                      title: label,
+                    })}
+                    aria-label={`Ampliar imagem: ${label}`}
+                  >
+                    <img src={`${assets}${image}`} alt={label} loading="lazy" />
+                    <span><ImageIcon size={15} /> Ampliar</span>
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section className="portfolio-gallery video-gallery" aria-labelledby="gallery-videos-title">
+              <div className="gallery-heading">
+                <div className="gallery-icon"><Video size={21} /></div>
+                <div>
+                  <span className="gallery-kicker">Galeria 02</span>
+                  <h3 id="gallery-videos-title">Vídeos &amp; Audiovisual</h3>
+                  <p>Reels, registros e produções em movimento.</p>
+                </div>
+                <span className="gallery-count">{videoProjects.length} vídeos</span>
+              </div>
+              <div className="video-gallery-grid">
+                {videoProjects.map(({ video, label }) => (
+                  <article className="gallery-video-card" key={video}>
+                    <video
+                      src={`/${video}`}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      aria-label={label}
+                    />
+                    
+                    <div className="video-card-caption">
+                      <span><Play size={14} /> {label}</span>
+                      <small>ASSISTA AO VÍDEO</small>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          <div className="portfolio-bottom reveal">
+            <span>DESIGN · CONTEÚDO · VÍDEO</span>
+            <span>IMAGENS E VÍDEOS EM GALERIAS SEPARADAS</span>
+          </div>
+        </div>
+      </section>
 
       <section className="method-section section-wrap reveal">
 <div className="method-copy">
