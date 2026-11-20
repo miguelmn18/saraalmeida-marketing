@@ -10,7 +10,7 @@ import {
 
 } from 'lucide-react';
 
-const WHATSAPP = 'https://wa.me/558381590351?text=Ol%C3%A1%2C%20Sara!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20conhecer%20seus%20servi%C3%A7os.';
+const WHATSAPP = 'https://wa.me/558381590351?text=Ol%C3%A1%2C%20Sara!%20Vim%20pelo%20seu%20site%20e%20gostaria%20de%20fazer%20um%20orçamento.';
 
 const assets = '/imagens-serviço/';
 
@@ -597,10 +597,75 @@ function App() {
 <span className="copyright">© {new Date().getFullYear()} Sara Almeida. Todos os direitos reservados.</span>
 </footer>
 
-    <a className="whatsapp-float" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="Conversar com Sara pelo WhatsApp">
-<MessageCircle size={23} />
-<span>Vamos conversar</span>
-</a>
+    <style>{`
+      .sara-chat-float {
+        position: fixed; right: 26px; bottom: 26px; z-index: 120;
+        display: flex; align-items: center; gap: 12px;
+        width: max-content; max-width: min(360px, calc(100vw - 32px));
+        padding: 9px 16px 9px 9px; border: 1px solid rgba(255,255,255,.72);
+        border-radius: 999px; color: #fff; text-decoration: none;
+        background: linear-gradient(115deg, #173d32 0%, #205846 58%, #286c50 100%);
+        box-shadow: 0 12px 34px rgba(21, 57, 44, .28), 0 3px 10px rgba(21,57,44,.16);
+        transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+        animation: saraChatEntrance .7s .8s both; isolation: isolate;
+      }
+      .sara-chat-float:hover { transform: translateY(-4px) scale(1.025); filter: brightness(1.08); box-shadow: 0 18px 42px rgba(21,57,44,.34); }
+      .sara-chat-avatar-wrap { position: relative; flex: 0 0 54px; width: 54px; height: 54px; }
+      .sara-chat-avatar { display:block; width:100%; height:100%; object-fit:cover; object-position:center 28%; border-radius:50%; border:2px solid #f1d6a5; box-shadow:0 0 0 3px rgba(255,255,255,.13); }
+      .sara-chat-online { position:absolute; right:0; bottom:1px; width:13px; height:13px; border:2px solid #205846; border-radius:50%; background:#8ee0a4; box-shadow:0 0 0 0 rgba(142,224,164,.65); animation:saraOnlinePulse 2s infinite; }
+      .sara-chat-copy { display:flex; flex-direction:column; gap:3px; min-width:0; }
+      .sara-chat-kicker { color:#e9d5b2; font-size:9px; line-height:1; font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
+      .sara-chat-title { color:#fff; font-size:14px; line-height:1.15; font-weight:700; white-space:nowrap; }
+      .sara-chat-subtitle { color:rgba(255,255,255,.78); font-size:10px; line-height:1.2; white-space:nowrap; }
+      .sara-chat-action { display:grid; place-items:center; flex:0 0 36px; width:36px; height:36px; margin-left:3px; border-radius:50%; color:#174432; background:#f1d6a5; transition:transform .25s ease, background .25s ease; }
+      .sara-chat-float:hover .sara-chat-action { transform:translateX(3px); background:#ffe6bb; }
+      @keyframes saraChatEntrance { from { opacity:0; transform:translateY(18px) scale(.96); } to { opacity:1; transform:translateY(0) scale(1); } }
+      @keyframes saraOnlinePulse { 0% { box-shadow:0 0 0 0 rgba(142,224,164,.65); } 70% { box-shadow:0 0 0 7px rgba(142,224,164,0); } 100% { box-shadow:0 0 0 0 rgba(142,224,164,0); } }
+      @media (max-width: 600px) {
+        /* No mobile, o convite vira um botão circular compacto com a foto da Sara. */
+        .sara-chat-float {
+          right:16px; left:auto; bottom:calc(16px + env(safe-area-inset-bottom));
+          width:68px; height:68px; max-width:68px; box-sizing:border-box;
+          display:block; padding:4px; border-radius:50%;
+          border:2px solid #f1d6a5;
+          background:linear-gradient(145deg, #286c50, #173d32);
+          box-shadow:0 8px 24px rgba(21,57,44,.34), 0 0 0 5px rgba(241,214,165,.20);
+          animation:saraChatEntrance .7s .8s both, saraMobilePulse 2.8s 1.5s infinite;
+        }
+        .sara-chat-float::before {
+          content:""; position:absolute; inset:-6px; border:1px solid rgba(241,214,165,.62);
+          border-radius:50%; pointer-events:none;
+        }
+        .sara-chat-avatar-wrap { position:absolute; inset:3px; width:auto; height:auto; }
+        .sara-chat-avatar { border:0; box-shadow:none; }
+        .sara-chat-online { right:1px; bottom:3px; width:12px; height:12px; border-color:#173d32; }
+        .sara-chat-copy { display:none; }
+        .sara-chat-action {
+          position:absolute; right:-3px; bottom:-3px; z-index:2;
+          display:grid; place-items:center; width:29px; height:29px;
+          margin:0; border:2px solid #fff; border-radius:50%;
+          color:#fff; background:#20b968; box-shadow:0 3px 10px rgba(0,0,0,.24);
+        }
+        .sara-chat-float:hover { transform:translateY(-3px) scale(1.04); }
+      }
+      @keyframes saraMobilePulse {
+        0%, 100% { box-shadow:0 8px 24px rgba(21,57,44,.34), 0 0 0 5px rgba(241,214,165,.20); }
+        50% { box-shadow:0 10px 28px rgba(21,57,44,.40), 0 0 0 8px rgba(241,214,165,.08); }
+      }
+      @media (prefers-reduced-motion: reduce) { .sara-chat-float, .sara-chat-online { animation:none; transition:none; } }
+    `}</style>
+    <a className="sara-chat-float" href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="Chamar Sara pelo WhatsApp e conversar sobre seu projeto">
+      <span className="sara-chat-avatar-wrap">
+        <img className="sara-chat-avatar" src="/imagens/perfil2.jpg" alt="Sara Almeida" loading="lazy" />
+        <span className="sara-chat-online" aria-hidden="true" />
+      </span>
+      <span className="sara-chat-copy">
+        <span className="sara-chat-kicker">Vamos tirar sua ideia do papel?</span>
+        <span className="sara-chat-title">Converse com a Sara</span>
+        <span className="sara-chat-subtitle">Conte o que você está planejando ✨</span>
+      </span>
+      <span className="sara-chat-action" aria-hidden="true"><MessageCircle size={19} /></span>
+    </a>
 
     {lightbox && <div className="lightbox" role="dialog" aria-modal="true" aria-label={lightbox.title} onMouseDown={(e) => { if (e.target === e.currentTarget) setLightbox(null); }}>
 <button className="lightbox-close" onClick={() => setLightbox(null)} aria-label="Fechar imagem">
