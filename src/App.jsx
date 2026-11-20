@@ -69,6 +69,76 @@ const workImages = [
 
 ];
 
+
+function MediaCarousel({ items, type = 'image', onOpenImage }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const total = items.length;
+  const previous = () => setActiveIndex((current) => (current - 1 + total) % total);
+  const next = () => setActiveIndex((current) => (current + 1) % total);
+  if (!total) return null;
+  const activeItem = items[activeIndex];
+
+  return (
+    <div className="media-carousel" aria-roledescription="carrossel">
+      <div className={`media-carousel-stage ${type === 'video' ? 'media-carousel-video' : 'media-carousel-image'}`}>
+        {type === 'image' ? (
+          <button type="button" className="media-carousel-image-button"
+            onClick={() => onOpenImage?.(activeIndex)}
+            aria-label={`Ampliar imagem ${activeIndex + 1}: ${activeItem.label}`}>
+            <img key={activeItem.src} src={activeItem.src} alt={activeItem.label}
+              loading="eager" decoding="async" fetchPriority="high" />
+            <span className="media-carousel-expand"><Maximize2 size={15} /> Ampliar imagem</span>
+          </button>
+        ) : (
+          <video key={activeItem.src} src={activeItem.src} controls playsInline
+            preload="none" controlsList="nodownload" aria-label={activeItem.label} />
+        )}
+      </div>
+      <div className="media-carousel-footer">
+        <div className="media-carousel-caption">
+          <span className="media-carousel-position">{String(activeIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
+          <p>{activeItem.label}</p>
+        </div>
+        <div className="media-carousel-controls">
+          <button type="button" onClick={previous} aria-label="Item anterior" disabled={total < 2}><ArrowLeft size={18} /></button>
+          <button type="button" onClick={next} aria-label="Próximo item" disabled={total < 2}><ArrowRight size={18} /></button>
+        </div>
+      </div>
+      <div className="media-carousel-progress" aria-hidden="true">
+        <span style={{ width: `${((activeIndex + 1) / total) * 100}%` }} />
+      </div>
+      <style>{`
+        .media-carousel{width:100%;min-width:0}
+        .media-carousel-stage{position:relative;width:100%;height:clamp(260px,48vw,590px);display:flex;align-items:center;justify-content:center;overflow:hidden;background:#171613;border-radius:18px}
+        .media-carousel-image-button{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:0;border:0;background:transparent;cursor:zoom-in}
+        .media-carousel-image-button img{display:block;width:100%;height:100%;max-height:590px;object-fit:contain}
+        .media-carousel-expand{position:absolute;right:16px;bottom:16px;display:flex;align-items:center;gap:7px;padding:9px 12px;border-radius:30px;background:rgba(20,19,17,.78);color:#fff;font-size:12px;opacity:.92}
+        .media-carousel-video video{display:block;width:100%;height:100%;object-fit:contain;background:#111}
+        .media-carousel-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 2px 12px}
+        .media-carousel-caption{display:flex;align-items:center;gap:14px;min-width:0}
+        .media-carousel-position{flex:none;color:var(--gold,#b69a70);font-size:11px;letter-spacing:.12em;font-weight:700}
+        .media-carousel-caption p{margin:0;color:var(--ink,#24211d);font-size:14px;line-height:1.5}
+        .media-carousel-controls{display:flex;gap:8px;flex:none}
+        .media-carousel-controls button{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line,#ded8ce);border-radius:50%;background:transparent;color:var(--ink,#24211d);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+        .media-carousel-controls button:hover{background:var(--dark,#24211d);color:#fff;border-color:var(--dark,#24211d)}
+        .media-carousel-controls button:disabled{opacity:.4;cursor:not-allowed}
+        .media-carousel-progress{height:2px;width:100%;overflow:hidden;background:var(--line,#ded8ce)}
+        .media-carousel-progress span{display:block;height:100%;background:var(--gold,#b69a70);transition:width .25s ease}
+        @media(max-width:640px){
+          .media-carousel-stage{height:clamp(230px,68vw,390px);border-radius:12px}
+          .media-carousel-image-button img{max-height:390px}
+          .media-carousel-footer{align-items:flex-start;padding-top:13px}
+          .media-carousel-caption{align-items:flex-start;gap:9px}
+          .media-carousel-caption p{font-size:12px}
+          .media-carousel-controls{gap:6px}
+          .media-carousel-controls button{width:36px;height:36px}
+          .media-carousel-expand{right:10px;bottom:10px;padding:7px 9px;font-size:11px}
+        }
+      `}</style>
+    </div>
+  );
+}
+
 function SectionHeading({ eyebrow, title, centered = false, children }) {
 
   return <div className={`section-heading ${centered ? 'centered' : ''}`}>
@@ -91,9 +161,16 @@ function App() {
 
   useEffect(() => {
 
-    const onScroll = () => setScrolled(window.scrollY > 18);
-
-    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 18);
+        frame = 0;
+      });
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
 
@@ -103,7 +180,11 @@ function App() {
 
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-    return () => { window.removeEventListener('scroll', onScroll); observer.disconnect(); };
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      observer.disconnect();
+      if (frame) window.cancelAnimationFrame(frame);
+    };
 
   }, []);
 
@@ -256,7 +337,7 @@ function App() {
         <div className="hero-visual reveal">
 
           <div className="portrait-frame">
-<img src="/imagens/perfil2.jpg" alt="Sara Almeida, profissional de marketing digital" className="hero-portrait" />
+<img src="/imagens/perfil2.jpg" alt="Sara Almeida, profissional de marketing digital" className="hero-portrait" fetchPriority="high" decoding="async" />
 <div className="portrait-caption">
 <span>Estratégia com propósito.</span>
 <span>Cacimba De Dentro Grande · PB</span>
@@ -370,7 +451,7 @@ function App() {
               <span className="eyebrow">04 — Portfólio criativo</span>
               <h2>Trabalhos em <em>destaque.</em></h2>
             </div>
-            <p>Explore separadamente os projetos de design e fotografia e as produções audiovisuais.</p>
+            <p>Navegue pelos projetos de design e fotografia e pelas produções audiovisuais em galerias compactas e interativas.</p>
           </div>
 
           <div className="portfolio-galleries reveal">
@@ -384,29 +465,24 @@ function App() {
                 </div>
                 <span className="gallery-count">{imageProjects.reduce((total, project) => total + project.images.length, 0)} imagens</span>
               </div>
-              <div className="image-gallery-grid">
-                {imageProjects.flatMap((project) => project.images.map((image) => ({
-                  image,
-                  label: project.label,
-                }))).map(({ image, label }, index) => (
-                  <button
-                    className="gallery-image-card"
-                    key={image}
-                    onClick={() => setLightbox({
-                      items: imageProjects.flatMap((project) => project.images.map((name) => ({
-                        src: `${assets}${name}`,
-                        alt: project.label,
-                      }))),
-                      index: imageProjects.flatMap((project) => project.images).indexOf(image),
-                      title: label,
-                    })}
-                    aria-label={`Ampliar imagem: ${label}`}
-                  >
-                    <img src={`${assets}${image}`} alt={label} loading="lazy" />
-                    <span><ImageIcon size={15} /> Ampliar</span>
-                  </button>
-                ))}
-              </div>
+              <MediaCarousel
+                items={imageProjects.flatMap((project) =>
+                  project.images.map((image) => ({
+                    src: `${assets}${image}`,
+                    label: project.label,
+                  }))
+                )}
+                type="image"
+                onOpenImage={(index) => {
+                  const items = imageProjects.flatMap((project) =>
+                    project.images.map((image) => ({
+                      src: `${assets}${image}`,
+                      alt: project.label,
+                    }))
+                  );
+                  setLightbox({ items, index, title: 'Portfólio de imagens e design' });
+                }}
+              />
             </section>
 
             <section className="portfolio-gallery video-gallery" aria-labelledby="gallery-videos-title">
@@ -419,30 +495,19 @@ function App() {
                 </div>
                 <span className="gallery-count">{videoProjects.length} vídeos</span>
               </div>
-              <div className="video-gallery-grid">
-                {videoProjects.map(({ video, label }) => (
-                  <article className="gallery-video-card" key={video}>
-                    <video
-                      src={`/${video}`}
-                      controls
-                      playsInline
-                      preload="metadata"
-                      aria-label={label}
-                    />
-                    
-                    <div className="video-card-caption">
-                      <span><Play size={14} /> {label}</span>
-                      <small>ASSISTA AO VÍDEO</small>
-                    </div>
-                  </article>
-                ))}
-              </div>
+              <MediaCarousel
+                items={videoProjects.map(({ video, label }) => ({
+                  src: `/${video}`,
+                  label,
+                }))}
+                type="video"
+              />
             </section>
           </div>
 
           <div className="portfolio-bottom reveal">
             <span>DESIGN · CONTEÚDO · VÍDEO</span>
-            <span>IMAGENS E VÍDEOS EM GALERIAS SEPARADAS</span>
+            <span>CARROSSEIS DE IMAGENS E VÍDEOS</span>
           </div>
         </div>
       </section>
